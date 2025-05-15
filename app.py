@@ -21,7 +21,8 @@ def force_convert_to_h264(input_path):
         "-c:a", "aac", "-b:a", "128k",
         output_path
     ]
-    result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    
+    result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=300)
     if result.returncode != 0:
         raise RuntimeError(f"FFmpeg 변환 실패:\n{result.stderr.decode()}")
     if not os.path.exists(output_path) or os.path.getsize(output_path) == 0:
