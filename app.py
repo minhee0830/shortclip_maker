@@ -110,7 +110,7 @@ def index():
             return f"\u274c 처리 중 오류 발생: 영상 열기 실패: {e}"
         finally:
             if os.path.exists(input_path): os.remove(input_path)
-            if os.path.exists(converted_path): os.remove(converted_path)
+            if converted_path and os.path.exists(converted_path): os.remove(converted_path)
 
     return render_template('index.html')
 
