@@ -17,6 +17,7 @@ def force_convert_to_h264(input_path):
     output_path = os.path.join(UPLOAD_FOLDER, f"{uuid.uuid4()}_converted_safe.mp4")
     command = [
         "ffmpeg", "-y", "-loglevel", "error", "-i", input_path,
+        "-preset", "ultrafast",
         "-c:v", "libx264", "-pix_fmt", "yuv420p",
         "-c:a", "aac", "-b:a", "128k",
         output_path
