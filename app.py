@@ -94,6 +94,8 @@ def index():
         input_path = os.path.join(UPLOAD_FOLDER, f"{uuid.uuid4()}.mp4")
         video.save(input_path)
 
+        converted_path = None  # 안전하게 finally에서 사용할 수 있도록 미리 선언
+
         try:
             converted_path = force_convert_to_h264(input_path)
             clip = get_safe_clip(converted_path)
