@@ -21,7 +21,7 @@ def force_convert_to_h264(input_path):
         "-c:a", "aac", "-b:a", "128k",
         output_path
     ]
-    
+
     result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=300)
     if result.returncode != 0:
         raise RuntimeError(f"FFmpeg 변환 실패:\n{result.stderr.decode()}")
@@ -105,7 +105,8 @@ def index():
 
             final = CompositeVideoClip([clip, product_clip] + subtitles)
             output_path = os.path.join(EXPORT_FOLDER, f"result_{uuid.uuid4()}.mp4")
-            final.write_videofile(output_path, codec='libx264', audio_codec='aac')
+            final.write_videofile(output_path, codec='libx264', audio_codec='aac', threads=1, logger=None)
+
             return send_file(output_path, as_attachment=True)
         except Exception as e:
             return f"\u274c 처리 중 오류 발생: 영상 열기 실패: {e}"
