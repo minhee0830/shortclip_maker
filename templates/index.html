@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>숏폼 자동생성기</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #f8f8f8;
+      border-radius: 10px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    input[type="file"],
+    input[type="text"],
+    textarea,
+    input[type="submit"] {
+      width: 100%;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+
+    input[type="text"],
+    textarea {
+      padding: 10px;
+    }
+
+    textarea {
+      height: 150px;
+    }
+
+    input[type="submit"] {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 12px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>숏폼 자동생성기</h1>
+  <form method="POST" enctype="multipart/form-data">
+    <label for="product">상품명:</label>
+    <input type="text" name="product" id="product" required>
+
+    <div style="margin-top: 20px;"></div>
+    <label for="script">자막 내용 (줄바꿈으로 구분):</label>
+    <textarea name="script" id="script" required></textarea>
+
+    <label for="video">동영상 파일 업로드 (mp4, mov 등):</label>
+    <input type="file" name="video" id="video" accept="video/*" required>
+
+    <input type="submit" value="숏폼 생성하기">
+  </form>
+</body>
+</html>
