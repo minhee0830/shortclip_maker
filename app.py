@@ -59,17 +59,15 @@ def generate_subtitle_clips(script, video_duration, video_size):
     clips = []
     per_clip_duration = min(3, video_duration / len(lines))
 
-    #폰트 이름 자동 감지
-    if platform.startswith('darwin'):
-        font_name = '배달의민족-주아-OTF'  # macOS
-    else:
-        font_name = '배달의민족 주아'      # Ubuntu (Vultr)
+    
+    font_path = "/root/fonts/BMJUA.ttf"
+
 
     for i, line in enumerate(lines):
         txt_clip = TextClip(
             line,
             fontsize=60,
-            font=font_name,
+            font=font_path,
             color='white',
             stroke_color='black',
             stroke_width=2,
@@ -81,16 +79,13 @@ def generate_subtitle_clips(script, video_duration, video_size):
 
 
 def create_fixed_title(product_name, video_duration, video_size):
-    # ✅ 플랫폼에 따라 폰트 자동 선택
-    if platform.startswith('darwin'):
-        font_name = '배달의민족-주아-OTF'  # macOS
-    else:
-        font_name = '배달의민족 주아'      # Ubuntu (서버)
+    
+    font_path = "/root/fonts/BMJUA.ttf"
 
     return TextClip(
         product_name,
         fontsize=70,
-        font=font_name,
+        font=font_path,
         color='white',
         stroke_color='black',
         stroke_width=4,
