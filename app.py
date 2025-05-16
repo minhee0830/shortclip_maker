@@ -59,15 +59,11 @@ def generate_subtitle_clips(script, video_duration, video_size):
     clips = []
     per_clip_duration = min(3, video_duration / len(lines))
 
-    
-    font_path = "/root/fonts/BMJUA.ttf"
-
-
     for i, line in enumerate(lines):
         txt_clip = TextClip(
             line,
             fontsize=60,
-            font=font_path,
+            font="/root/fonts/BMJUA.ttf",
             color='white',
             stroke_color='black',
             stroke_width=2,
@@ -79,13 +75,11 @@ def generate_subtitle_clips(script, video_duration, video_size):
 
 
 def create_fixed_title(product_name, video_duration, video_size):
-    
-    font_path = "/root/fonts/BMJUA.ttf"
 
     return TextClip(
         product_name,
         fontsize=70,
-        font=font_path,
+        font="/root/fonts/BMJUA.ttf",
         color='white',
         stroke_color='black',
         stroke_width=4,
