@@ -67,6 +67,7 @@ def generate_subtitle_clips(script, video_duration, video_size):
             color='white',
             stroke_color='black',
             stroke_width=2,
+            method='caption'
         ).set_position(('center', video_size[1] - 500))
         txt_clip = txt_clip.set_start(i * per_clip_duration).set_duration(per_clip_duration)
         clips.append(txt_clip)
@@ -83,6 +84,7 @@ def create_fixed_title(product_name, video_duration, video_size):
         color='white',
         stroke_color='black',
         stroke_width=4,
+        method='caption'
     ).set_position(('center', 240)).set_duration(video_duration)
 
 
