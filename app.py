@@ -63,7 +63,7 @@ def generate_subtitle_clips(script, video_duration, video_size):
         txt_clip = TextClip(
             line,
             fontsize=60,
-            font="/root/fonts/BMJUA.ttf",
+            font='/root/fonts/NotoSansKR-Bold.ttf',
             color='white',
             stroke_color='black',
             stroke_width=2,
@@ -79,7 +79,7 @@ def create_fixed_title(product_name, video_duration, video_size):
     return TextClip(
         product_name,
         fontsize=70,
-        font="/root/fonts/BMJUA.ttf",
+        font='/root/fonts/NotoSansKR-Bold.ttf',
         color='white',
         stroke_color='black',
         stroke_width=4,
