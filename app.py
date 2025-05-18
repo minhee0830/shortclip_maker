@@ -47,7 +47,7 @@ def create_fixed_title(product_name, video_duration, video_size):
     return TextClip(
         product_name,
         fontsize=100,
-        font='배달의민족-주아-OTF',
+        font='NanumGothic',
         color='white',
         stroke_color='black',
         stroke_width=4,
@@ -63,11 +63,10 @@ def generate_subtitle_clips(script, video_duration, video_size):
         txt_clip = TextClip(
             line,
             fontsize=60,
-            font='/root/fonts/NotoSansKR-Bold.ttf',
+            font='NanumGothic',
             color='white',
             stroke_color='black',
             stroke_width=2,
-            method='caption'
         ).set_position(('center', video_size[1] - 500))
         txt_clip = txt_clip.set_start(i * per_clip_duration).set_duration(per_clip_duration)
         clips.append(txt_clip)
