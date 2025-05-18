@@ -51,6 +51,7 @@ def create_fixed_title(product_name, video_duration, video_size):
         color='white',
         stroke_color='black',
         stroke_width=4,
+        method='caption'  # ✅ 자동 줄바꿈 + 너비 문제 해결
     ).set_position(('center', 240)).set_duration(video_duration)
 
 #자막 (3초마다 변환됨)
