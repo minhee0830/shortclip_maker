@@ -51,7 +51,6 @@ def create_fixed_title(product_name, video_duration, video_size):
         color='white',
         stroke_color='black',
         stroke_width=4,
-        method='caption'  # ✅ 자동 줄바꿈 + 너비 문제 해결
     ).set_position(('center', 240)).set_duration(video_duration)
 
 #자막 (3초마다 변환됨)
@@ -73,20 +72,6 @@ def generate_subtitle_clips(script, video_duration, video_size):
         clips.append(txt_clip)
 
     return clips
-
-
-def create_fixed_title(product_name, video_duration, video_size):
-
-    return TextClip(
-        product_name,
-        fontsize=70,
-        font='/root/fonts/NotoSansKR-Bold.ttf',
-        color='white',
-        stroke_color='black',
-        stroke_width=4,
-        method='caption'
-    ).set_position(('center', 240)).set_duration(video_duration)
-
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
