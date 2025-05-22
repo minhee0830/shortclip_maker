@@ -108,7 +108,7 @@ def index():
 
 
             brand_clip = create_brand_title(brand_name, clip.duration, clip.size)
-            final = CompositeVideoClip([clip, product_clip] + subtitles)
+            final = CompositeVideoClip([clip, brand_clip, product_clip] + subtitles)
             output_path = os.path.join(EXPORT_FOLDER, f"result_{uuid.uuid4()}.mp4")
             final.write_videofile(output_path, codec='libx264', audio_codec='aac', threads=1, logger=None)
 
