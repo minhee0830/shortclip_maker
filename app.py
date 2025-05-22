@@ -42,11 +42,23 @@ def get_safe_clip(path):
         raise ValueError("가로형 영상은 허용되지 않습니다. 세로형 영상만 가능합니다.")
     return clip
 
+
+# 브랜드명
+def create_brand_title(brand_name, video_duration, video_size):
+    return TextClip(
+        brand_name,
+        fontsize=60,
+        font='NanumGothic',
+        color='white',
+        stroke_color='black',
+        stroke_width=3,
+    ).set_position(('center', 100)).set_duration(video_duration)
+
 #상품명
 def create_fixed_title(product_name, video_duration, video_size):
     return TextClip(
         product_name,
-        fontsize=100,
+        fontsize=80,
         font='NanumGothic',
         color='white',
         stroke_color='black',
@@ -80,6 +92,7 @@ def index():
             return '동영상 파일이 없습니다.'
         video = request.files['video']
         script = request.form['script']
+        brand_name = request.form['brand']
         product_name = request.form['product']
 
         input_path = os.path.join(UPLOAD_FOLDER, f"{uuid.uuid4()}.mp4")
@@ -93,6 +106,8 @@ def index():
             subtitles = generate_subtitle_clips(script, clip.duration, clip.size)
             product_clip = create_fixed_title(product_name, clip.duration, clip.size)
 
+
+            brand_clip = create_brand_title(brand_name, clip.duration, clip.size)
             final = CompositeVideoClip([clip, product_clip] + subtitles)
             output_path = os.path.join(EXPORT_FOLDER, f"result_{uuid.uuid4()}.mp4")
             final.write_videofile(output_path, codec='libx264', audio_codec='aac', threads=1, logger=None)
