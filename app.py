@@ -51,8 +51,8 @@ def create_brand_title(brand_name, video_duration, video_size):
         font='NanumGothic',
         color='white',
         stroke_color='black',
-        stroke_width=3,
-    ).set_position(('center', 100)).set_duration(video_duration)
+        stroke_width=2,
+    ).set_position(('center', 140)).set_duration(video_duration)
 
 #상품명
 def create_fixed_title(product_name, video_duration, video_size):
@@ -62,7 +62,7 @@ def create_fixed_title(product_name, video_duration, video_size):
         font='NanumGothic',
         color='white',
         stroke_color='black',
-        stroke_width=4,
+        stroke_width=2,
     ).set_position(('center', 240)).set_duration(video_duration)
 
 #자막 (3초마다 변환됨)
