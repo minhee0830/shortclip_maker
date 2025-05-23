@@ -49,7 +49,7 @@ def create_brand_title(brand_name, video_duration, video_size):
         fontsize=60,
         font='NanumGothic',
         color='white',
-    ).n_color(
+    ).on_color(
         size=None,
         color=(0, 0, 0),  # 배경색: 검정
         col_opacity=0.6,  # 투명도: 60%
@@ -63,7 +63,7 @@ def create_fixed_title(product_name, video_duration, video_size):
         fontsize=80,
         font='NanumGothic',
         color='white',
-    ).n_color(
+    ).on_color(
         size=None,
         color=(0, 0, 0),  # 배경색: 검정
         col_opacity=0.6,  # 투명도: 60%
@@ -82,7 +82,7 @@ def generate_subtitle_clips(script, video_duration, video_size):
             fontsize=60,
             font='NanumGothic',
             color='white',
-        ).n_color(
+        ).on_color(
             size=None,
             color=(0, 0, 0),
             col_opacity=0.6,
