@@ -44,12 +44,14 @@ def create_brand_title(brand_name, video_duration, video_size):
         fontsize=60,
         font='NanumGothic',
         color='white',
+    ).margin(
+        left=30, right=30, top=10, bottom=10,
+        color=None
     ).on_color(
         size=None,
         color=(0, 0, 0),
         col_opacity=0.6,
-        pos='center',
-        padding=(10, 30)
+        pos='center'
     ).set_position(('center', 140)).set_duration(video_duration)
 
 def create_fixed_title(product_name, video_duration, video_size):
@@ -58,12 +60,14 @@ def create_fixed_title(product_name, video_duration, video_size):
         fontsize=80,
         font='NanumGothic',
         color='white',
+    ).margin(
+        left=30, right=30, top=15, bottom=15,
+        color=None
     ).on_color(
         size=None,
         color=(0, 0, 0),
         col_opacity=0.6,
-        pos='center',
-        padding=(15, 30)
+        pos='center'
     ).set_position(('center', 240)).set_duration(video_duration)
 
 def generate_subtitle_clips(script, video_duration, video_size):
@@ -77,12 +81,14 @@ def generate_subtitle_clips(script, video_duration, video_size):
             fontsize=60,
             font='NanumGothic',
             color='white',
+        ).margin(
+            left=20, right=20, top=10, bottom=10,
+            color=None
         ).on_color(
             size=None,
             color=(0, 0, 0),
             col_opacity=0.6,
-            pos='center',
-            padding=(10, 20)
+            pos='center'
         ).set_position(('center', video_size[1] - 500)).set_start(i * per_clip_duration).set_duration(per_clip_duration)
         clips.append(txt_clip)
 
