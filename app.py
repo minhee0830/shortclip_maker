@@ -3,16 +3,13 @@ import uuid
 import subprocess
 from flask import Flask, render_template, request, send_file
 from moviepy.editor import VideoFileClip, TextClip, CompositeVideoClip
-from sys import platform 
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads'
 EXPORT_FOLDER = 'exports'
-#FONT_PATH = os.path.join('fonts', 'BMJUA_otf.otf')  # 예: 배달의민족 주아 폰트 경로
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(EXPORT_FOLDER, exist_ok=True)
-
 
 def force_convert_to_h264(input_path):
     output_path = os.path.join(UPLOAD_FOLDER, f"{uuid.uuid4()}_converted_safe.mp4")
@@ -31,45 +28,44 @@ def force_convert_to_h264(input_path):
         raise RuntimeError("변환된 mp4 파일이 없습니다.")
     return output_path
 
-
 def get_safe_clip(path):
-    clip = VideoFileClip(path).without_audio()  # 👈 음소거 처리 추가
+    clip = VideoFileClip(path).without_audio()
     if clip.duration < 10:
         raise ValueError("영상 길이는 10초 이상이어야 합니다.")
     if clip.duration > 120:
         raise ValueError("영상은 최대 2분까지만 허용됩니다.")
     if clip.w > clip.h:
         raise ValueError("가로형 영상은 허용되지 않습니다. 세로형 영상만 가능합니다.")
-    return clip
+    return clip.resize(height=1920)
 
-
-# 브랜드명
 def create_brand_title(brand_name, video_duration, video_size):
     return TextClip(
         brand_name,
         fontsize=60,
         font='NanumGothic',
         color='white',
-    ).margin(left=30, right=30, top=10, bottom=10).on_color(
-        color=(0, 0, 0),  # 배경색: 검정
-        col_opacity=0.6,  # 투명도: 60%
-        pos='center',     # 텍스트 기준 정렬
+    ).on_color(
+        size=None,
+        color=(0, 0, 0),
+        col_opacity=0.6,
+        pos='center',
+        padding=(10, 30)
     ).set_position(('center', 140)).set_duration(video_duration)
 
-#상품명
 def create_fixed_title(product_name, video_duration, video_size):
     return TextClip(
         product_name,
         fontsize=80,
         font='NanumGothic',
         color='white',
-    ).margin(left=30, right=30, top=15, bottom=15).on_color(
-        color=(0, 0, 0),  # 배경색: 검정
-        col_opacity=0.6,  # 투명도: 60%
-        pos='center',     # 텍스트 기준 정렬
+    ).on_color(
+        size=None,
+        color=(0, 0, 0),
+        col_opacity=0.6,
+        pos='center',
+        padding=(15, 30)
     ).set_position(('center', 240)).set_duration(video_duration)
 
-#자막 (3초마다 변환됨)
 def generate_subtitle_clips(script, video_duration, video_size):
     lines = script.strip().split('\n')
     clips = []
@@ -81,12 +77,13 @@ def generate_subtitle_clips(script, video_duration, video_size):
             fontsize=60,
             font='NanumGothic',
             color='white',
-        ).margin(left=20, right=20, top=10, bottom=10).on_color(
+        ).on_color(
+            size=None,
             color=(0, 0, 0),
             col_opacity=0.6,
             pos='center',
-        ).set_position(('center', video_size[1] - 500))
-        txt_clip = txt_clip.set_start(i * per_clip_duration).set_duration(per_clip_duration)
+            padding=(10, 20)
+        ).set_position(('center', video_size[1] - 500)).set_start(i * per_clip_duration).set_duration(per_clip_duration)
         clips.append(txt_clip)
 
     return clips
@@ -104,17 +101,15 @@ def index():
         input_path = os.path.join(UPLOAD_FOLDER, f"{uuid.uuid4()}.mp4")
         video.save(input_path)
 
-        converted_path = None  # 안전하게 finally에서 사용할 수 있도록 미리 선언
+        converted_path = None
 
         try:
             converted_path = force_convert_to_h264(input_path)
             clip = get_safe_clip(converted_path)
-            clip = clip.resize(height=1920)
             subtitles = generate_subtitle_clips(script, clip.duration, clip.size)
             product_clip = create_fixed_title(product_name, clip.duration, clip.size)
-
-
             brand_clip = create_brand_title(brand_name, clip.duration, clip.size)
+
             final = CompositeVideoClip([clip, brand_clip, product_clip] + subtitles)
             output_path = os.path.join(EXPORT_FOLDER, f"result_{uuid.uuid4()}.mp4")
             final.write_videofile(output_path, codec='libx264', audio_codec='aac', threads=1, logger=None)
@@ -127,7 +122,6 @@ def index():
             if converted_path and os.path.exists(converted_path): os.remove(converted_path)
 
     return render_template('index.html')
-
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
