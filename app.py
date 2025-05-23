@@ -103,6 +103,7 @@ def index():
         try:
             converted_path = force_convert_to_h264(input_path)
             clip = get_safe_clip(converted_path)
+            clip = clip.resize(height=1920)
             subtitles = generate_subtitle_clips(script, clip.duration, clip.size)
             product_clip = create_fixed_title(product_name, clip.duration, clip.size)
 
