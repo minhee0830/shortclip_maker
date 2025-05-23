@@ -50,8 +50,10 @@ def create_brand_title(brand_name, video_duration, video_size):
         fontsize=60,
         font='NanumGothic',
         color='white',
-        stroke_color='black',
-        stroke_width=2,
+    ).margin(left=30, right=30, top=10, bottom=10).on_color(
+        color=(0, 0, 0),  # 배경색: 검정
+        col_opacity=0.6,  # 투명도: 60%
+        pos='center',     # 텍스트 기준 정렬
     ).set_position(('center', 140)).set_duration(video_duration)
 
 #상품명
@@ -61,8 +63,10 @@ def create_fixed_title(product_name, video_duration, video_size):
         fontsize=80,
         font='NanumGothic',
         color='white',
-        stroke_color='black',
-        stroke_width=2,
+    ).margin(left=30, right=30, top=15, bottom=15).on_color(
+        color=(0, 0, 0),  # 배경색: 검정
+        col_opacity=0.6,  # 투명도: 60%
+        pos='center',     # 텍스트 기준 정렬
     ).set_position(('center', 240)).set_duration(video_duration)
 
 #자막 (3초마다 변환됨)
@@ -77,8 +81,10 @@ def generate_subtitle_clips(script, video_duration, video_size):
             fontsize=60,
             font='NanumGothic',
             color='white',
-            stroke_color='black',
-            stroke_width=2,
+        ).margin(left=20, right=20, top=10, bottom=10).on_color(
+            color=(0, 0, 0),
+            col_opacity=0.6,
+            pos='center',
         ).set_position(('center', video_size[1] - 500))
         txt_clip = txt_clip.set_start(i * per_clip_duration).set_duration(per_clip_duration)
         clips.append(txt_clip)
